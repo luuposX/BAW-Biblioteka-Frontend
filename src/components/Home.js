@@ -6,11 +6,11 @@ const Home = () => {
   const navigate = useNavigate();
 
   const goToLogin = () => {
-    navigate("/login");
+    navigate("/auth/login");
   };
 
   const goToRegister = () => {
-    navigate("/register");
+    navigate("/auth/register");
   };
 
   return (

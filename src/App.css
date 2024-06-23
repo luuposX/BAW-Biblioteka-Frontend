@@ -23,6 +23,19 @@ body {
   text-decoration: none;
 }
 
+.table-short {
+  width: 50px;
+}
+
+.container {
+  margin-top: 50px;
+  height: 100%;
+  background-color: #565e8157;
+  padding: 20px;
+  padding-top: 7px;
+  border-radius: 20px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

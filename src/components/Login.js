@@ -1,18 +1,30 @@
 import React, { useState } from "react";
 import { Form, Button, Alert, Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { login } from "../api";
+import { jwtDecode } from "jwt-decode";
 
-const Login = () => {
+const Login = ({ setIsAuthenticated }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await login({ username, password });
       console.log("Login successful:", response.data);
-      // Zapisz token do localStorage lub state aplikacji
+      // Zapisz token do localStorage
+      const token = response.data.token;
+      localStorage.setItem("token", token);
+      // Zdekoduj token, aby wyciągnąć dane użytkownika
+      const decodedToken = jwtDecode(token);
+      localStorage.setItem("user", JSON.stringify(decodedToken));
+      // Ustaw isAuthenticated na true
+      setIsAuthenticated(true);
+      // Przenieś do dashboard
+      navigate("/dashboard");
     } catch (error) {
       setError("Nieprawidłowe dane");
     }
