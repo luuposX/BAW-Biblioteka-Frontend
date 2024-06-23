@@ -20,7 +20,7 @@ const Home = () => {
       <Button variant="primary" onClick={goToLogin} className="m-2">
         Zaloguj się
       </Button>
-      <Button variant="secondary" onClick={goToRegister} className="m-2">
+      <Button variant="info" onClick={goToRegister} className="m-2">
         Zarejestruj się
       </Button>
     </Container>

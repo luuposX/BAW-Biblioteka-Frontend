@@ -53,9 +53,18 @@ const Login = ({ setIsAuthenticated }) => {
           />
         </Form.Group>
         {error && <Alert variant="danger">{error}</Alert>}
+
         <Button variant="primary" type="submit" className="mt-3">
           Zaloguj się
         </Button>
+        <br></br>
+        <br></br>
+        <span>
+          Nie masz jeszcze konta?{" "}
+          <span className="link" onClick={() => navigate("/auth/register")}>
+            Zarejestruj się!
+          </span>
+        </span>
       </Form>
     </Container>
   );

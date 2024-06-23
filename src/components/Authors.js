@@ -8,12 +8,12 @@ import {
   Pagination,
   Alert,
 } from "react-bootstrap";
-import { getBooks } from "../api";
+import { getAuthors } from "../api";
 
-const Books = () => {
-  const [books, setBooks] = useState([]);
-  const [allBooks, setAllBooks] = useState([]);
-  const [allBooksData, setAllBooksData] = useState([]);
+const Authors = () => {
+  const [authors, setAuthors] = useState([]);
+  const [allAuthors, setAllAuthors] = useState([]);
+  const [allAuthorsData, setAllAuthorsData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
@@ -21,22 +21,22 @@ const Books = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchBooks = async (page) => {
+    const fetchAuthors = async (page) => {
       try {
-        const response = await getBooks(page);
+        const response = await getAuthors(page);
         if (response.data && Array.isArray(response.data.data)) {
-          setBooks(response.data.data);
-          setAllBooks(response.data.data);
-          setAllBooksData(response.data.pagination.total_records);
+          setAuthors(response.data.data);
+          setAllAuthors(response.data.data);
+          setAllAuthorsData(response.data.pagination.total_records);
           setTotalPages(response.data.pagination.total_pages);
         } else {
           console.error("Unexpected response data format:", response.data);
         }
       } catch (error) {
-        console.error("Error fetching books:", error);
+        console.error("Error fetching authors:", error);
       }
     };
-    fetchBooks(currentPage);
+    fetchAuthors(currentPage);
   }, [currentPage]);
 
   const handleSearch = (e) => {
@@ -44,20 +44,19 @@ const Books = () => {
     setSearchTerm(value);
 
     if (value === "") {
-      setBooks(allBooks);
+      setAuthors(allAuthors);
       setSearchResults([]);
       return;
     }
 
-    const filteredBooks = allBooks.filter(
-      (book) =>
-        book.title.toLowerCase().includes(value) ||
-        book.author.first_name.toLowerCase().includes(value) ||
-        book.author.last_name.toLowerCase().includes(value)
+    const filteredAuthors = allAuthors.filter(
+      (author) =>
+        author.first_name.toLowerCase().includes(value) ||
+        author.last_name.toLowerCase().includes(value)
     );
 
-    setSearchResults(filteredBooks);
-    setBooks(filteredBooks);
+    setSearchResults(filteredAuthors);
+    setAuthors(filteredAuthors);
   };
 
   const handlePageChange = (pageNumber) => {
@@ -82,55 +81,46 @@ const Books = () => {
 
   return (
     <Container>
-      <h2 className="mt-4">Książki</h2>
+      <h2 className="mt-4">Autorzy</h2>
       <Form className="my-4">
         <Form.Control
           type="text"
-          placeholder="Wyszukaj książki lub autora"
+          placeholder="Wyszukaj autorów"
           value={searchTerm}
           onChange={handleSearch}
         />
-        <br></br>
-        <h6>Wyszukanych: {searchResults.length}</h6>
+        <br />
+        <h6>Znalezionych: {searchResults.length}</h6>
       </Form>
-      <Button variant="primary" onClick={() => navigate("/add-book")}>
-        Dodaj książkę
-      </Button>
       <Button variant="primary" onClick={() => navigate("/add-author")}>
         Dodaj autora
       </Button>
       {searchTerm && searchResults.length === 0 ? (
         <Alert variant="warning" className="mt-4">
-          Nie znaleziono książek ani autorów o podanym kryterium.
+          Nie znaleziono autorów o podanym kryterium.
         </Alert>
       ) : (
         <Table striped bordered hover className="mt-4">
           <thead>
             <tr>
               <th>Id</th>
-              <th>Tytuł</th>
-              <th>Autor</th>
+              <th>Imię</th>
+              <th>Nazwisko</th>
               <th className="table-short">Akcje</th>
             </tr>
           </thead>
           <tbody>
-            {books.map((book) => (
-              <tr key={book.id}>
-                <td>{book.id}</td>
-                <td>{book.title}</td>
-                <td>{`${book.author.first_name} ${book.author.last_name}`}</td>
+            {authors.map((author) => (
+              <tr key={author.id}>
+                <td>{author.id}</td>
+                <td>{author.first_name}</td>
+                <td>{author.last_name}</td>
                 <td>
                   <Button
                     variant="info"
-                    onClick={() => navigate(`/books/${book.id}`)}
+                    onClick={() => navigate(`/authors/${author.id}`)}
                   >
-                    K
-                  </Button>
-                  <Button
-                    variant="info"
-                    onClick={() => navigate(`/authors/${book.author.id}`)}
-                  >
-                    A
+                    Szczegóły
                   </Button>
                 </td>
               </tr>
@@ -138,7 +128,7 @@ const Books = () => {
           </tbody>
         </Table>
       )}
-      <h6>Wszystkich: {allBooksData}</h6>
+      <h6>Wszystkich: {allAuthorsData}</h6>
       {renderPagination()}
       <Button variant="primary" onClick={() => navigate("/dashboard")}>
         Powrót
@@ -147,4 +137,4 @@ const Books = () => {
   );
 };
 
-export default Books;
+export default Authors;

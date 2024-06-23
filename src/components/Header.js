@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Header() {
   return (
     <div className="header">
-      <Link to="/">Biblioteka</Link>
+      <Link to="/">Codebookers</Link>
     </div>
   );
 }

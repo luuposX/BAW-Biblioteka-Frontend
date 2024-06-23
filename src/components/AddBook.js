@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Alert } from "react-bootstrap";
 import { createBook } from "../api";
+import { useNavigate } from "react-router-dom";
 
 const AddBook = () => {
   const [title, setTitle] = useState("");
@@ -10,6 +11,7 @@ const AddBook = () => {
   const [authorId, setAuthorId] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -91,6 +93,13 @@ const AddBook = () => {
           Dodaj książkę
         </Button>
       </Form>
+      <Button
+        variant="primary"
+        className="mt-4"
+        onClick={() => navigate("/books")}
+      >
+        Powrót
+      </Button>
     </Container>
   );
 };

@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Form, Button, Alert, Container } from "react-bootstrap";
 import { register } from "../api";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,6 +48,7 @@ const Register = () => {
           <Form.Control
             type="password"
             value={password}
+            placeholder="min 6 znaków"
             onChange={(e) => setPassword(e.target.value)}
             required
           />
@@ -54,6 +57,14 @@ const Register = () => {
         <Button variant="primary" type="submit" className="mt-3">
           Zarejestruj się
         </Button>
+        <br></br>
+        <br></br>
+        <span>
+          Masz już konto?{" "}
+          <span className="link" onClick={() => navigate("/auth/login")}>
+            Zaloguj się!
+          </span>
+        </span>
       </Form>
     </Container>
   );

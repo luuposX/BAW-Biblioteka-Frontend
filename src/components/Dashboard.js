@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Container } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import { getCurrentUser } from "../api"; // Importuj funkcję getCurrentUser
 
 const Dashboard = () => {
@@ -37,24 +37,39 @@ const Dashboard = () => {
 
   return (
     <Container>
-      <h2 className="my-4">Witaj {user.data.username}!</h2>
-      <Button
-        variant="primary"
-        className="m-2"
-        onClick={() => navigate("/books")}
-      >
-        Książki
-      </Button>
-      <Button
-        variant="primary"
-        className="m-2"
-        onClick={() => navigate("/account")}
-      >
-        Moje konto
-      </Button>
-      <Button variant="danger" className="m-2" onClick={handleLogout}>
-        Wyloguj
-      </Button>
+      <Row className="center">
+        <Col sm="5" className="main-menu">
+          <h2 className="my-4">Witaj {user.data.username}!</h2>
+          <Button
+            variant="primary"
+            className="m-2 btn-wide"
+            onClick={() => navigate("/books")}
+          >
+            Książki
+          </Button>
+          <Button
+            variant="primary"
+            className="m-2 btn-wide"
+            onClick={() => navigate("/authors")}
+          >
+            Autorzy
+          </Button>
+          <Button
+            variant="primary"
+            className="m-2 btn-wide"
+            onClick={() => navigate("/account")}
+          >
+            Moje konto
+          </Button>
+          <Button
+            variant="danger"
+            className="m-2 btn-wide"
+            onClick={handleLogout}
+          >
+            Wyloguj
+          </Button>
+        </Col>
+      </Row>
     </Container>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Alert } from "react-bootstrap";
 import { createAuthor } from "../api";
+import { useNavigate } from "react-router-dom";
 
 const AddAuthor = () => {
   const [firstName, setFirstName] = useState("");
@@ -8,6 +9,7 @@ const AddAuthor = () => {
   const [birthDate, setBirthDate] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const navigate = useNavigate();
 
   const formatDate = (date) => {
     const [year, month, day] = date.split("-");
@@ -72,6 +74,13 @@ const AddAuthor = () => {
           Dodaj autora
         </Button>
       </Form>
+      <Button
+        variant="primary"
+        className="mt-3"
+        onClick={() => navigate("/dashboard")}
+      >
+        Powrót
+      </Button>
     </Container>
   );
 };

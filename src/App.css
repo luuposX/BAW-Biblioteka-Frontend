@@ -24,7 +24,7 @@ body {
 }
 
 .table-short {
-  width: 50px;
+  width: 100px;
 }
 
 .container {
@@ -34,6 +34,26 @@ body {
   padding: 20px;
   padding-top: 7px;
   border-radius: 20px;
+}
+.link {
+  color: blue;
+}
+.link:hover {
+  cursor: pointer;
+}
+
+.center {
+  justify-content: center;
+}
+
+.btn-wide {
+  width: 100%;
+}
+
+.main-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 @media (prefers-reduced-motion: no-preference) {

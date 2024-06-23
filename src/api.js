@@ -85,8 +85,8 @@ export const getAuthorBooks = (authorId) => {
 };
 
 // Funkcje dla autorów
-export const getAuthors = () => {
-  return axios.get(`${API_URL}/authors`);
+export const getAuthors = (page) => {
+  return axios.get(`${API_URL}/authors?page=${page}`);
 };
 
 export const getAuthor = (authorId) => {

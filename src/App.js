@@ -16,6 +16,8 @@ import Home from "./components/Home";
 import AddBook from "./components/AddBook";
 import AddAuthor from "./components/AddAuthor";
 import BookDetails from "./components/BookDetails";
+import AuthorDetails from "./components/AuthorDetails";
+import Authors from "./components/Authors";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -50,6 +52,12 @@ const App = () => {
           element={isAuthenticated ? <Books /> : <Navigate to="/auth/login" />}
         />
         <Route
+          path="/authors"
+          element={
+            isAuthenticated ? <Authors /> : <Navigate to="/auth/login" />
+          }
+        />
+        <Route
           path="/account"
           element={
             isAuthenticated ? <Account /> : <Navigate to="/auth/login" />
@@ -68,9 +76,15 @@ const App = () => {
           }
         />
         <Route
-          path="/book-details/:bookId"
+          path="/books/:bookId"
           element={
             isAuthenticated ? <BookDetails /> : <Navigate to="/auth/login" />
+          }
+        />
+        <Route
+          path="/authors/:authorId"
+          element={
+            isAuthenticated ? <AuthorDetails /> : <Navigate to="/auth/login" />
           }
         />
         <Route path="*" element={<Navigate to="/" />} />
